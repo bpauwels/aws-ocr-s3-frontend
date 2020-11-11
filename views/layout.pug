@@ -1,0 +1,43 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js')
+    link(rel='stylesheet', href='https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css')
+    script(src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js')
+    script(src='https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js')
+    script.
+      Dropzone.options.uploadDropzone = {
+          acceptedFiles: 'image/png',
+          maxFiles: 1,
+          init: function() {
+            this.on('success', function(file, resp){
+              $('#tblinput').DataTable().ajax.reload();
+            });
+          }
+      };
+
+  body
+    block content
+    script.
+      $(document).ready(function() {
+          $.fn.dataTable.ext.buttons.reload = {
+              text: 'Reload',
+              action: function ( e, dt, node, config ) {
+                  dt.ajax.reload();
+              }
+          };
+          $('#tblinput').DataTable({
+            "dom": 'Bfrtip',
+            "ajax": '/api/getBucketContent/input',
+            "buttons": ['reload']
+          });
+          $('#tbloutput').DataTable({
+            "dom": 'Bfrtip',
+            "ajax": '/api/getBucketContent/output',
+            "buttons": ['reload']
+          });
+      });

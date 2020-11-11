@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  h2 Input Bucket
+  p Files in this bucket will be OCR'd
+  table#tblinput
+    thead
+      tr
+        th(style='width:75%; text-align:left') File
+        th(style='width:25%; text-align:left') Uploaded
+    tbody
+      tr
+        td dummy
+        td data
+  h3 Upload files
+  form.dropzone(action='/api/upload' method="post" id="uploadDropzone")
+  p
+    i OCR will take a few minutes. Reload the output bucket to retrieve results!
+  h2 Output Bucket
+  p OCR results
+  table#tbloutput
+    thead
+      tr
+        th(style='width:75%; text-align:left') File
+        th(style='width:25%; text-align:left') Uploaded
+    tbody
+      tr
+        td dummy
+        td data
