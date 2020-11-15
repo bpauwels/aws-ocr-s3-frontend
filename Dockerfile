@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:lts-buster-slim
 
 # Create app directory
 WORKDIR /usr/src/app
